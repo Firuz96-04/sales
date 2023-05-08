@@ -105,10 +105,15 @@ def apartment_put_validate(data):
     image_formats = ('jpg', 'jpeg', 'png')
     errors = []
     resident_complex_id = data['floor'].entrance.block.resident_complex.id
-    apartment = Apartment.objects.\
-        filter(name__iexact=data['name'], floor__entrance__block__resident_complex_id=resident_complex_id).first()
-    if apartment:
-        errors.append({'apartment_exists': f'{apartment.name} is already exists'})
+    try:
+        data['name']
+    except KeyError:
+        pass
+    else:
+        apartment = Apartment.objects.\
+            filter(name__iexact=data['name'], floor__entrance__block__resident_complex_id=resident_complex_id).first()
+        if apartment:
+            errors.append({'apartment_exists': f'{apartment.name} is already exists'})
     try:
         if data['image_1'] is not None:
             if data['image_1'].size > 2 * MAX_SIZE:

@@ -208,8 +208,7 @@ class ApartmentAddEditSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         response = super().to_representation(instance)
         # response = dict()
-        del response['image_1']
-        del response['image_2']
+
         response['block'] = instance.floor.entrance.block.id
         response['entrance'] = instance.floor.entrance.id
         response['images'] = list()
@@ -219,6 +218,8 @@ class ApartmentAddEditSerializer(serializers.ModelSerializer):
             response['images'].append(request.build_absolute_uri(instance.image_2.url))
         # if instance.image_2:
         #     response['image_2'] = request.build_absolute_uri(instance.image_2.url)
+        del response['image_1']
+        del response['image_2']
         return response
 
 

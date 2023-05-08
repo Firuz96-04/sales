@@ -155,14 +155,13 @@ class ApartmentApiView(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         floor = ApartmentSerializer(self.get_queryset(), many=True)
-        return Response({'data': floor.data})
+        return Response({'data': floor.data}, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
-        print('posttttttttttttt')
         apartment = ApartmentAddEditSerializer(data=request.data, context={"request": request})
         apartment.is_valid(raise_exception=True)
         apartment.save()
-        return Response({'apartment': apartment.data})
+        return Response({'apartment': apartment.data}, status=status.HTTP_201_CREATED)
 
     def put(self, request, *args, **kwargs):
         apartment_id = request.query_params.get('id')
