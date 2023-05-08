@@ -299,7 +299,7 @@ class ClientNoticeApartmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Client
-        fields = ('id', 'first_name', 'last_name', 'sure_name', 'phone', 'info_apartment',
+        fields = ('id', 'first_name', 'last_name', 'sure_name', 'phone', 'recall', 'info_apartment',
                   'social_medias', 'apartment', 'action', 'sale_manager', 'comment', 'created_at')
 
     def get_created_at(self, obj):

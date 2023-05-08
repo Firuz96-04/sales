@@ -18,5 +18,7 @@ class ClientNoticeApartmentApiView(mixins.ListModelMixin,
         return Response({'data': serial.data})
 
     def post(self, request, *args, **kwargs):
-
-        return Response({'data': 'post'})
+        notice = ClientNoticeApartmentSerializer(data=request.data)
+        notice.is_valid(raise_exception=True)
+        notice.save()
+        return Response({'data': notice.data})

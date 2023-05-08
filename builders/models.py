@@ -217,6 +217,7 @@ class Client(models.Model):
     action = models.ForeignKey(SaleManagerAction, on_delete=models.CASCADE)
     sale_manager = models.ForeignKey(SaleManager, on_delete=models.CASCADE)
     comment = models.TextField(blank=True)
+    recall = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
 
 

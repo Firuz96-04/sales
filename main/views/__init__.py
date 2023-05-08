@@ -9,3 +9,4 @@ from .heating import HeatingApiView
 from .building_type import BuildingTypeApiView
 from .floor_type import FloorTypeApiView
 from .apartment_decoration import ApartmentDecorationApiView
+from .client_action import SaleManagerActionApiView
