@@ -212,7 +212,7 @@ class Client(models.Model):
     sure_name = models.CharField(max_length=20, blank=True)
     phone = models.CharField(max_length=14, blank=True)
     info_apartment = models.CharField(max_length=100, blank=True)
-    social_media = models.ManyToManyField(SocialMedia, blank=True, related_name='clients')
+    # social_media = models.ForeignKey(SocialMedia, on_delete=models.CASCADE)
     apartment = models.ForeignKey(Apartment, on_delete=models.PROTECT)
     action = models.ForeignKey(SaleManagerAction, on_delete=models.CASCADE)
     sale_manager = models.ForeignKey(SaleManager, on_delete=models.CASCADE)

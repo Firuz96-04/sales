@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'corsheaders',
     'rest_framework_simplejwt',
     'main_auth.apps.MainAuthConfig',
@@ -67,9 +68,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'sales.urls'
 
 INTERNAL_IPS = [
-    # ...
     "127.0.0.1",
-    # ...
 ]
 
 TEMPLATES = [
@@ -154,6 +153,10 @@ MEDIA_URL = 'media/'
 
 REST_FRAMEWORK = {
     # 'UPLOADED_FILES_USE_URL': True,
+
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
@@ -169,6 +172,7 @@ REST_FRAMEWORK = {
     ],
 
 }
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 SIMPLE_JWT = {

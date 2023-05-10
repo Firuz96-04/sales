@@ -302,18 +302,35 @@ class SimpleApartment(serializers.Serializer):
 class ClientNoticeApartmentSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
 
+    sale_manager = serializers.IntegerField(source='sale_manager.id', read_only=True)
+    apartment_name = serializers.CharField(source='apartment.name', read_only=True)
+
     class Meta:
         model = Client
         fields = ('id', 'first_name', 'last_name', 'sure_name', 'phone', 'recall', 'info_apartment',
-                  'social_media', 'apartment', 'action', 'sale_manager', 'comment', 'created_at')
+                  'social_media', 'apartment', 'action', 'sale_manager', 'apartment_name', 'comment', 'created_at')
 
     def get_created_at(self, obj):
         myDate = obj.created_at
         formatedDate = myDate.strftime("%Y-%m-%d %H:%M:%S")
         return formatedDate
 
+    def validate(self, data):
+        errors = []
+        apartment = Apartment.objects.get(pk=data['apartment'].id)
+        if apartment.status_id == 2:
+            errors.append({'apartment': 'this room has already sold'})
+        if errors:
+            raise serializers.ValidationError({'errors': errors})
+        return data
+
     def to_representation(self, instance):
         response = super().to_representation(instance)
+        # print(instance.sale_manager_id)
         # response['apartment'] = SimpleApartment(instance.apartment).data
-
+        response['sale_manager'] = instance.sale_manager_id
         return response
+
+    def create(self, validated_data):
+        validated_data["sale_manager_id"] = 9
+        return super().create(validated_data)
