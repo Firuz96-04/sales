@@ -13,6 +13,8 @@ router.register(r'building-type', BuildingTypeApiView, basename='building-type')
 router.register(r'floor-type', FloorTypeApiView, basename='floor-type')
 router.register(r'apartment-decoration', ApartmentDecorationApiView, basename='apartment-decoration')
 router.register(r'sale-manager-action', SaleManagerActionApiView, basename='sale-manager-action')
+router.register(r'social-media', SocialMediaApiView, basename='social-media')
+
 # print(router.urls)
 urlpatterns = [
     path('', include(router.urls)),

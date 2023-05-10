@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
 
 from .models import (City, Region, BuildingClass, BuildingType, Parking, Kitchen, Elevator,
-                     Decoration, Facade, Heating, FloorType, ApartmentDecoration, SaleManagerAction)
+                     Decoration, Facade, Heating, FloorType, ApartmentDecoration, SaleManagerAction, SocialMedia)
 import uuid
 
 
@@ -173,6 +173,22 @@ class SaleManagerActionSerializer(serializers.ModelSerializer):
         sale = SaleManagerAction.objects.filter(name__iexact=data['name'])
         if sale:
             errors.append({'action': 'this is action is already exists'})
+
+        if errors:
+            raise serializers.ValidationError({'errors': errors})
+        return data
+
+
+class SocialMediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialMedia
+        fields = ('id', 'name')
+
+    def validate(self, data):
+        errors = []
+        sale = SocialMedia.objects.filter(name__iexact=data['name'])
+        if sale:
+            errors.append({'social_media': 'this is social_media is already exists'})
 
         if errors:
             raise serializers.ValidationError({'errors': errors})

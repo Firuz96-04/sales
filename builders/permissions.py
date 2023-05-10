@@ -25,9 +25,22 @@ class OnlyBuilderPermission(permissions.BasePermission):
 
 
 class OnlyManagerPermission(permissions.BasePermission):
+
     def has_permission(self, request, view):
+        print(request.user.status_id)
         if bool(request.user and request.user.is_authenticated
                 and request.user.role.name == 'manager'
                 and request.user.status.name == 'active'
+                ):
+            return True
+
+
+class OnlySaleManagerPermission(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        # print(request.user.status_id)
+        if bool(request.user and request.user.is_authenticated
+                and request.user.role_id == 4
+                and request.user.status_id == 1
                 ):
             return True

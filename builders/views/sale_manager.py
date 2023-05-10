@@ -1,10 +1,10 @@
 from rest_framework import mixins, generics, viewsets, status
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from builders.serializers import (
     ClientNoticeApartmentSerializer,
 )
-from builders.models import Client, Apartment
+from builders.permissions import OnlySaleManagerPermission
+from builders.models import Client
 
 
 class ClientNoticeApartmentApiView(mixins.ListModelMixin,
@@ -12,6 +12,7 @@ class ClientNoticeApartmentApiView(mixins.ListModelMixin,
                                    generics.GenericAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientNoticeApartmentSerializer
+    permission_classes = (OnlySaleManagerPermission,)
 
     def get(self, request, *args, **kwargs):
         serial = ClientNoticeApartmentSerializer(self.get_queryset(), many=True)
@@ -21,6 +22,4 @@ class ClientNoticeApartmentApiView(mixins.ListModelMixin,
         notice = ClientNoticeApartmentSerializer(data=request.data)
         notice.is_valid(raise_exception=True)
         notice.save()
-        apartment = Apartment.objects.get(pk=57)
-        print(apartment.status_id)
         return Response({'data': notice.data})
