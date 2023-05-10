@@ -28,4 +28,3 @@ def add_apartment_status(sender, instance, created, **kwargs):
         apartment = Apartment.objects.get(pk=instance.apartment_id)
         apartment.status_id = 3
         apartment.save()
-        print('client is add')
