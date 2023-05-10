@@ -301,12 +301,14 @@ class SimpleApartment(serializers.Serializer):
 
 class ClientNoticeApartmentSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
+
     sale_manager = serializers.IntegerField(source='sale_manager.id', read_only=True)
+    apartment_name = serializers.CharField(source='apartment.name', read_only=True)
 
     class Meta:
         model = Client
         fields = ('id', 'first_name', 'last_name', 'sure_name', 'phone', 'recall', 'info_apartment',
-                  'social_media', 'apartment', 'action', 'sale_manager', 'comment', 'created_at')
+                  'social_media', 'apartment', 'action', 'sale_manager', 'apartment_name', 'comment', 'created_at')
 
     def get_created_at(self, obj):
         myDate = obj.created_at

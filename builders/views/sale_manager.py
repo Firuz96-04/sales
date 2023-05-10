@@ -21,7 +21,8 @@ class ClientNoticeApartmentApiView(mixins.ListModelMixin,
         sale_manager_id = self.request.user.id
         sale_manager = SaleManager.objects.get(user_id=sale_manager_id)
         manager_id = sale_manager.manager_id
-        return Client.objects.filter(sale_manager__manager_id=manager_id).select_related('sale_manager', 'social_media')
+        return Client.objects.filter(sale_manager__manager_id=manager_id).select_related('sale_manager',
+                                                                                         'social_media', 'apartment')
 
     def get(self, request, *args, **kwargs):
         query = self.filter_queryset(self.get_queryset())
