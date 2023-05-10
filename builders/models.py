@@ -5,7 +5,7 @@ from PIL import Image
 from imagekit.models import ProcessedImageField
 from django.db import models
 from main.models import City, Parking, BuildingClass, BuildingType, Elevator, Kitchen, Decoration, \
-    Facade, Heating, ApartmentDecoration, FloorType, ApartmentType, ApartmentStatus, SaleManagerAction
+    Facade, Heating, ApartmentDecoration, FloorType, ApartmentType, ApartmentStatus, SaleManagerAction, SocialMedia
 from .utils import *
 from django.core.files import File
 from main_auth.models import CustomUser
@@ -212,7 +212,7 @@ class Client(models.Model):
     sure_name = models.CharField(max_length=20, blank=True)
     phone = models.CharField(max_length=14, blank=True)
     info_apartment = models.CharField(max_length=100, blank=True)
-    social_medias = models.CharField(max_length=120, blank=True)
+    social_media = models.ManyToManyField(SocialMedia, blank=True, related_name='clients')
     apartment = models.ForeignKey(Apartment, on_delete=models.PROTECT)
     action = models.ForeignKey(SaleManagerAction, on_delete=models.CASCADE)
     sale_manager = models.ForeignKey(SaleManager, on_delete=models.CASCADE)

@@ -3,9 +3,9 @@ from .models import *
 # Register your models here.
 
 
-# @admin.register(Builder)
-# class AdminBuilder(admin.ModelAdmin):
-#     list_display = ('id',)
+@admin.register(Client)
+class AdminClient(admin.ModelAdmin):
+    list_display = ('id',)
 
 
 

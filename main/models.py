@@ -134,6 +134,18 @@ class FloorType(models.Model):
 class SaleManagerAction(models.Model):
     id = models.SmallAutoField(primary_key=True)
     name = models.CharField(max_length=30)
+
+
+class SocialMedia(models.Model):
+    id = models.SmallAutoField(primary_key=True)
+    name = models.CharField(max_length=20)
+
+    class Meta:
+        db_table = "social_media"
+        verbose_name = "социальные сети"
+
+    def __str__(self):
+        return self.name
 # class CCTV(models.Model):
 #     id = models.SmallAutoField(primary_key=True)
 #     name = models.CharField(max_length=25)

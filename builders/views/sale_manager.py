@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from builders.serializers import (
     ClientNoticeApartmentSerializer,
 )
-from builders.models import Client
+from builders.models import Client, Apartment
 
 
 class ClientNoticeApartmentApiView(mixins.ListModelMixin,
@@ -21,4 +21,6 @@ class ClientNoticeApartmentApiView(mixins.ListModelMixin,
         notice = ClientNoticeApartmentSerializer(data=request.data)
         notice.is_valid(raise_exception=True)
         notice.save()
+        apartment = Apartment.objects.get(pk=57)
+        print(apartment.status_id)
         return Response({'data': notice.data})

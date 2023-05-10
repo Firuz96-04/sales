@@ -294,15 +294,26 @@ class BlockMainSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'entrances')
 
 
+class SimpleApartment(serializers.Serializer):
+    id = serializers.IntegerField()
+    status = serializers.IntegerField(source='status.id')
+
+
 class ClientNoticeApartmentSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
 
     class Meta:
         model = Client
         fields = ('id', 'first_name', 'last_name', 'sure_name', 'phone', 'recall', 'info_apartment',
-                  'social_medias', 'apartment', 'action', 'sale_manager', 'comment', 'created_at')
+                  'social_media', 'apartment', 'action', 'sale_manager', 'comment', 'created_at')
 
     def get_created_at(self, obj):
         myDate = obj.created_at
         formatedDate = myDate.strftime("%Y-%m-%d %H:%M:%S")
         return formatedDate
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        # response['apartment'] = SimpleApartment(instance.apartment).data
+
+        return response
